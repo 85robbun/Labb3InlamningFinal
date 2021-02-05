@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace Labb3InlamningFinal
 {
-    class Player : Entity
+    internal class Player : Entity
     {
-         
         public string name;
         public int level = 0;
         public int golds = 0;
@@ -138,5 +135,3 @@ namespace Labb3InlamningFinal
         }
     }
 }
-    
-
