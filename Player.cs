@@ -67,6 +67,7 @@ namespace Labb3InlamningFinal
 
         public string showXp(int xp, int totalXp)
         {
+            Console.WriteLine("Expirience bar");
             int barLength = 100;
             double percentXp = (double)xp / totalXp * barLength;
             int playerXp = Convert.ToInt32(percentXp);

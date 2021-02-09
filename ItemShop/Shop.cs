@@ -14,27 +14,16 @@ namespace Labb3InlamningFinal
 
             //int page = (p != 0 ? p : player.level);
 
-            /*
-            Console.Clear();
-            Console.WriteLine("Shop: " + player.name + "\n");
-            Program.WriteFormattedLine("You have({0}/{1}) HP", Program.colors[10], player.getHp(), player.getTotalHp());
-            Program.WriteFormattedLine("You have {0} Armour", Program.colors[10], player.getArmor());
-            Program.WriteFormattedLine("You have {0} Damage", Program.colors[10], player.getDp());
-            Program.WriteFormattedLine("You have {0} Gold", Program.colors[14], player.getGolds());
-            Console.WriteLine("");
-
-            Console.WriteLine("\n ============================================= \n");
-            */
-
+            //Item shop with navigation right left arrow
             if (boughtItem is Item)
             {
                 Console.WriteLine("You bought : " + boughtItem.name);
             }
             else
             {
-                foreach (Item item in ItemsList.getItemsPage(page, ItemsList.getItems(player.level)))
+                foreach (Item item in ItemsList.GetItemsPage(page, ItemsList.GetItems(player.level)))
                 {
-                    item.showItem();
+                    item.ShowItem();
                 }
             }
             Console.WriteLine("\n ===================Page " + page + "====================");
@@ -53,19 +42,18 @@ namespace Labb3InlamningFinal
             {
                 Program.WriteFormattedLine("{0}", Program.colors[4], "Your health is full");
             }
-            Program.WriteFormattedLine("Press {0} to buy an item", Program.colors[4], "Enter");
-            Program.WriteFormattedLine("Press {0} to return back to menu", Program.colors[4], "b");
+
+            ShowShopInfo();
             string itemInput = "";
             if (!(boughtItem is Item))
             {
                 ConsoleKey shopInput = Console.ReadKey().Key;
-                Console.WriteLine("Press Enter");
                 switch (shopInput)
                 {
-                    case ConsoleKey.Enter:
+                       case ConsoleKey.Enter:
                         Program.WriteFormattedLine("Enter{0} of item you want to buy", Program.colors[4], " ID number ");
-                        itemInput = Console.ReadLine();
-                        break;
+                         itemInput = Console.ReadLine();
+                       break;
 
                     case ConsoleKey.B: new Game(player); break;
                     case ConsoleKey.LeftArrow:
@@ -83,7 +71,7 @@ namespace Labb3InlamningFinal
             }
             if (Int32.TryParse(itemInput, out int res))
             {
-                Item item = ItemsList.getItems(player.level).Find(x => x.id == res);
+                Item item = ItemsList.GetItems(player.level).Find(x => x.id == res);
 
                 if (item == null || boughtItem is Item)
                 {
@@ -101,6 +89,23 @@ namespace Labb3InlamningFinal
             else
             {
                 new Shop(player);
+            }
+        }
+        public void ShowShopInfo()
+        {
+            if (player.level > 2 || player.golds >15)
+            {
+                Program.WriteFormattedLine("Navigate {0} with right and left key", Program.colors[4], "to scroll the page");
+                Program.WriteFormattedLine("Press {0} to activate shop", Program.colors[4], "Enter");
+                Program.WriteFormattedLine("Press {0} to return back to menu", Program.colors[4], "b");
+                Program.WriteFormattedLine("{0}", Program.colors[6], "You have--> " + player.golds + "  gold on you");
+            }
+            else
+            {
+                Program.WriteFormattedLine("Press {0} to activate shop", Program.colors[4], "Enter");
+                Program.WriteFormattedLine("Press {0} to return back to menu", Program.colors[4], "b");
+                Program.WriteFormattedLine("{0}", Program.colors[6], "You have--> " + player.golds + "  gold on you");
+
             }
         }
 

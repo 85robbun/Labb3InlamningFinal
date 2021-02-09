@@ -20,7 +20,7 @@ namespace Labb3InlamningFinal
         public Item(int id, int type, int value, int level, string name, string description, int golds)
         {
             this.id = id;
-            itemType = type;
+            this.itemType = type;
             this.value = value;
             this.level = level;
             this.name = name;
@@ -28,7 +28,7 @@ namespace Labb3InlamningFinal
             this.golds = golds;
         }
 
-        private string getItemType()
+        private string GetItemType()
         {
             switch (itemType)
             {
@@ -40,18 +40,18 @@ namespace Labb3InlamningFinal
             }
         }
 
-        public void showItem()
+        public void ShowItem()
         {
             Console.WriteLine("\n");
             Program.WriteFormattedLine("          " + name + " ({0} G)", Program.colors[14], golds.ToString());
             Console.WriteLine("          " + desc);
-            Program.WriteFormattedLine("          {0}", Program.colors[5], negOrPos(value) + value + " " + getItemType());
+            Program.WriteFormattedLine("          {0}", Program.colors[5], NegOrPos(value) + value + " " + GetItemType());
             Console.WriteLine("          ID: " + id);
             Console.WriteLine("\n");
         }
 
         //Adding navigation buttons to the list
-        private string negOrPos(int value)
+        private string NegOrPos(int value)
         {
             if (value < 0)
             {

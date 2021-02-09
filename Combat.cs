@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using System.Threading;
 
 namespace Labb3InlamningFinal
 {
-    class Combat
+    internal class Combat
     {
         private Player player;
         private Monster monster;
@@ -18,14 +16,15 @@ namespace Labb3InlamningFinal
             Console.Clear();
             this.player = player;
             monster = new Monster(player);
+
             this.totalPlayerHp = player.totalHp;
             this.totalMonsterHp = monster.hp;
 
-            runCombat();
+            RunCombat();
         }
 
         //Creating a visual bar to show player and enemy health
-        private string visualHp(int hp, int totalHp)
+        private string VisualHp(int hp, int totalHp)
         {
             int barLength = 40;
             double percentHp = (double)hp / totalHp * barLength;
@@ -46,22 +45,22 @@ namespace Labb3InlamningFinal
                         Substring(needed * -1, bar.Length - (needed * -1)).ToCharArray().Reverse().ToArray()));
         }
 
-        private void showCombat()
+        private void ShowCombat()
         {
             Console.Clear();
-            Program.WriteFormattedLine("{0}", Program.colors[12], "You are encounterd an enemy ! \n");
+            Program.WriteFormattedLine("{0}", Program.colors[12], "You are encounterd an enemy:");
             Program.WriteFormattedLine("{0}", Program.colors[12], "Remember that for each new battle enemy get stronger! \n");
-            Program.WriteFormattedLine("[{0}] ({1}/{2}) HP // Armor : {3}", Program.colors[10], visualHp(player.hp, totalPlayerHp), player.getHp(), player.getTotalHp(), player.getArmor());
-            Program.WriteFormattedLine("[{0}] {1} HP // Armor : {2}", Program.colors[12], visualHp(monster.hp, totalMonsterHp), monster.getHp(), monster.getArmor());
+            Program.WriteFormattedLine("[{0}] ({1}/{2}) HP // Armor : {3} //Damage: {4}", Program.colors[10], VisualHp(player.hp, totalPlayerHp), player.getHp(), player.getTotalHp(), player.getArmor(), player.getDp());
+            Program.WriteFormattedLine("[{0}] {1} HP // Armor : {2} //Damage : {3}", Program.colors[12], VisualHp(monster.hp, totalMonsterHp), monster.GetHp(), monster.GetArmor(), monster.GetDp());
             Console.WriteLine("");
         }
 
         //Method for combat when press key A
-        private void runCombat()
+        private void RunCombat()
         {
             while (player.hp > 0 && monster.hp > 0)
             {
-                showCombat();
+                ShowCombat();
 
                 Program.WriteFormattedLine("Press {0} to attack!", Program.colors[4], "a");
 
@@ -77,12 +76,12 @@ namespace Labb3InlamningFinal
                 }
             }
             if (monster.hp <= 0)
-                endCombat(true);
+                EndCombat(true);
             else
-                endCombat(false);
+                EndCombat(false);
         }
 
-        private void wonTheWar()
+        private void WonTheWar()
         {
             Program.WriteFormattedLine("{0}", Program.colors[2], "======== You have reached level 10 and Won the Game! ========");
             Program.WriteFormattedLine("{0}", Program.colors[2], "======== Game  exiting! ========");
@@ -90,11 +89,11 @@ namespace Labb3InlamningFinal
             Environment.Exit(-1);
         }
 
-        private void endCombat(bool won, bool loop = false)
+        private void EndCombat(bool won, bool loop = false)
         {
             if (won)
             {
-                showCombat();
+                ShowCombat();
                 Console.WriteLine("\n");
                 Program.WriteFormattedLine("{0}", Program.colors[2], "======== You have won this battle! ========");
 
@@ -108,15 +107,15 @@ namespace Labb3InlamningFinal
 
                 if (player.level == 10)
                 {
-                    wonTheWar();
+                    WonTheWar();
                 }
                 Console.WriteLine();
                 Program.WriteFormattedLine("Press{0} to return to Home an check to shop ", Program.colors[4], "b");
 
                 switch (Console.ReadKey().Key)
                 {
-                    case ConsoleKey.B: goHome(); break;
-                    default: endCombat(won, true); break;
+                    case ConsoleKey.B: GoHome(); break;
+                    default: EndCombat(won, true); break;
                 }
             }
             else
@@ -126,11 +125,9 @@ namespace Labb3InlamningFinal
             }
         }
 
-        public void goHome()
+        public void GoHome()
         {
             new Game(player);
         }
     }
 }
-    
-
