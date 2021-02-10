@@ -38,24 +38,17 @@ namespace Labb3InlamningFinal
 
             int currlen = bar.Length;
             int needed = barLength == currlen ? 0 : (barLength - currlen);
-
+           
             return needed == 0 ? bar :
                 (needed > 0 ? bar + new string(' ', needed) :
                     new string(new string(bar.ToCharArray().Reverse().ToArray()).
                         Substring(needed * -1, bar.Length - (needed * -1)).ToCharArray().Reverse().ToArray()));
+            
         }
 
-        private void ShowCombat()
-        {
-            Console.Clear();
-            Program.WriteFormattedLine("{0}", Program.colors[12], "You are encounterd an enemy:");
-            Program.WriteFormattedLine("{0}", Program.colors[12], "Remember that for each new battle enemy get stronger! \n");
-            Program.WriteFormattedLine("[{0}] ({1}/{2}) HP // Armor : {3} //Damage: {4}", Program.colors[10], VisualHp(player.hp, totalPlayerHp), player.getHp(), player.getTotalHp(), player.getArmor(), player.getDp());
-            Program.WriteFormattedLine("[{0}] {1} HP // Armor : {2} //Damage : {3}", Program.colors[12], VisualHp(monster.hp, totalMonsterHp), monster.GetHp(), monster.GetArmor(), monster.GetDp());
-            Console.WriteLine("");
-        }
+        
 
-        //Method for combat when press key A
+        //Method for combat when press key A attack
         private void RunCombat()
         {
             while (player.hp > 0 && monster.hp > 0)
@@ -67,20 +60,21 @@ namespace Labb3InlamningFinal
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.A:
-                        player.receiveAttack(monster);
-                        monster.receiveAttack(player);
+                        player.ReceiveAttack(monster);
+                        monster.ReceiveAttack(player);
                         break;
-
+                       
                     default:
                         break;
                 }
             }
+
             if (monster.hp <= 0)
                 EndCombat(true);
             else
                 EndCombat(false);
         }
-
+        
         private void WonTheWar()
         {
             Program.WriteFormattedLine("{0}", Program.colors[2], "======== You have reached level 10 and Won the Game! ========");
@@ -103,7 +97,8 @@ namespace Labb3InlamningFinal
                 Program.WriteFormattedLine("{0}", Program.colors[11], "+ " + monster.xpReward + " XP");
                 if (!loop) player.xp += monster.xpReward;
 
-                player.checkLevelUp();
+                player.CheckLevelUp();
+        
 
                 if (player.level == 10)
                 {
@@ -124,10 +119,20 @@ namespace Labb3InlamningFinal
                 return;
             }
         }
+        private void ShowCombat()
+        {
+            Console.Clear();
+            Program.WriteFormattedLine("{0}", Program.colors[12], "You are encounterd an enemy:");
+            Program.WriteFormattedLine("{0}", Program.colors[12], "Remember that for each new battle enemy gets stronger! \n");
+            Program.WriteFormattedLine("[{0}] ({1}/{2}) HP // Armor : {3} //Damage: {4}", Program.colors[10], VisualHp(player.hp, totalPlayerHp), player.GetHp(), player.GetTotalHp(), player.GetArmor(), player.GetDp());
+            Program.WriteFormattedLine("[{0}] {1} HP // Armor : {2} //Damage : {3}", Program.colors[12], VisualHp(monster.hp, totalMonsterHp), monster.GetHp(), monster.GetArmor(), monster.GetDp());
+            Console.WriteLine("");
+        }
 
         public void GoHome()
         {
             new Game(player);
         }
+ 
     }
 }

@@ -19,19 +19,17 @@ namespace Labb3InlamningFinal
             this.armor = armor;
         }
 
-        public void receiveAttack(Entity attacker)
+        public void ReceiveAttack(Entity attacker)
         {
             double multiplier = (double)50 / (50 + armor);
             int input = Convert.ToInt32((double)attacker.damage * multiplier);
             hp -= Convert.ToInt32((double)attacker.damage * multiplier);
+            
             if (this.hp < 0)
                 this.hp = 0;
         }
+    
 
-        public void showDamage(Entity attacker)
-        {
-            Console.WriteLine();
-        }
     }
 }
  

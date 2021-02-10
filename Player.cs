@@ -11,44 +11,42 @@ namespace Labb3InlamningFinal
         public int totalHp = 0;
         public int xp = 0;
         public int xpNeeded = 0;
-        private Player player;
-
         public Player(string Name) : base(120, 15, 25)  //health , damage and armor
         {
             this.name = Name;
             this.level = 1;
             this.totalHp = hp;
-            this.xpNeeded = setNeededXp();
+            this.xpNeeded = SetNeededXp();
         }
 
         // Setting the  getters upp
 
-        public string getHp()
-        {
+        public string GetHp()
+        { 
             return hp.ToString();
         }
 
-        public string getTotalHp()
+        public string GetTotalHp()
         {
             return totalHp.ToString();
         }
 
-        public string getGolds()
+        public string GetGolds()
         {
             return golds.ToString();
         }
 
-        public string getDp()
+        public string GetDp()
         {
             return damage.ToString();
         }
 
-        public string getLevel()
+        public string GetLevel()
         {
             return level.ToString();
         }
 
-        public string getXp()
+        public string GetXp()
         {
             return xp.ToString();
         }
@@ -58,18 +56,19 @@ namespace Labb3InlamningFinal
             return xpNeeded.ToString();
         }
 
-        public string getArmor()
+        public string GetArmor()
         {
             return armor.ToString();
         }
+   
 
         // Visual Expiriance bar
 
-        public string showXp(int xp, int totalXp)
+        public string ShowXp(int xp, int totalXp)
         {
-            Console.WriteLine("Expirience bar");
+            Console.WriteLine("Experience bar");
             int barLength = 100;
-            double percentXp = (double)xp / totalXp * barLength;
+            double percentXp = SetNeededXp() * barLength;
             int playerXp = Convert.ToInt32(percentXp);
             string bar = "";
 
@@ -87,52 +86,56 @@ namespace Labb3InlamningFinal
                         Substring(needed * -1, bar.Length - (needed * -1)).ToCharArray().Reverse().ToArray()));
         }
 
-        // Simple level upp formula
-        public void checkLevelUp()
+
+        // Simple level up formula
+        public void CheckLevelUp()
         {
             if (xp > xpNeeded)
             {
                 level++;
-                Program.WriteFormattedLine("{0}", Program.colors[9], "/You have leveld upp >>> " + getLevel() + "-You need to get to level 10");
+                Program.WriteFormattedLine("{0}", Program.colors[9], "/You have leveld upp >>> " + GetLevel() + "-You need to get to level 10");
                 xp -= xpNeeded;
-                xpNeeded = setNeededXp();
+                xpNeeded = SetNeededXp();
                 //hp += Convert.ToInt32(totalHp / 3);
                 //totalHp = Convert.ToInt32(totalHp * 1.25);
-                hp = setHp();
-                damage = setDp();
-                armor = setArmor();
+                hp = SetHp();
+                damage = SetDp();
+                armor = SetArmor();
                 totalHp = hp;
             }
         }
 
-        //Making it pretty easy to level formula
-        public int setNeededXp()
+        //This section is for setting players the  XP, health ,damage and armor
+        //
+        public int SetNeededXp()
         {
-            double tempXp = 10 + RandomEvents.NextDouble(20, 30);
+            double tempXp = 10 * RandomEvents.NextDouble(2, 3);
 
             return Convert.ToInt32(tempXp);
         }
 
-        private int setHp()
+        private int SetHp()
         {
             double tempHp = 120 + RandomEvents.NextDouble(50, 100);
 
             return Convert.ToInt32(tempHp);
         }
 
-        //Lowering enemy damage so we can easily win
-        private int setDp()
+        //
+        private int SetDp()
         {
-            double tempDp = 15 + RandomEvents.NextDouble(10, 20);
+            double tempDp = 2 * RandomEvents.NextDouble(5, 10);
 
             return Convert.ToInt32(tempDp);
         }
 
-        private int setArmor()
+        private int SetArmor()
         {
             double tempArmor = 10 + RandomEvents.NextDouble(10, 30);
 
             return Convert.ToInt32(tempArmor);
         }
-    }
+
+
+}
 }

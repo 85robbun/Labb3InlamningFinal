@@ -36,10 +36,10 @@ namespace Labb3InlamningFinal
             return Convert.ToInt32(tempHp);
         }
 
-        //Lowering enemy damage so we can easily win
+        //Lowering enemy stats in order to reach level 10
         private int SetDp()
         {
-            double tempDp = 50 * RandomEvents.NextDouble(0.12, 0.12) * player.level;
+            double tempDp = 40 * RandomEvents.NextDouble(0.12, 0.13) * player.level;
 
             return Convert.ToInt32(tempDp);
         }
@@ -64,8 +64,21 @@ namespace Labb3InlamningFinal
 
             return Convert.ToInt32(tempArmor);
         }
+        public int ShowMonsterDp()
+        {
+            Console.WriteLine("Monster hits you with //Damage:");
+            return damage;
+        }
+                public void ShowDamageMonster()
+        {
+            
+            Program.WriteFormattedLine("{0}", Program.colors[9], "/You hit the enemy for>>> " + GetDp() + "damage");
 
-        public string GetHp()
+        }
+
+
+    //This section is for returning  monster value stats, health,damage,and armor
+    public string GetHp()
         {
             return hp.ToString();
         }

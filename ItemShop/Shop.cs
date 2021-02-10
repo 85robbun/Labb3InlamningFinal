@@ -79,7 +79,7 @@ namespace Labb3InlamningFinal
                 }
                 else
                 {
-                    buyItem(item);
+                    BuyItem(item);
                 }
             }
             else if (itemInput == "b")
@@ -109,7 +109,7 @@ namespace Labb3InlamningFinal
             }
         }
 
-        private void buyItem(Item item)
+        private void BuyItem(Item item)
         {
             if (player.golds < item.golds)
             {
